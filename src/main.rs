@@ -29,8 +29,7 @@ const FONT: [u8; 80] = [
 fn main() {
     let mut my_chip = Chip8::new();
     my_chip.load_font();
-    my_chip.load_game(Path::new("/home/jf/Documents/chip8/roms/Pong (alt).ch8"));
-
+    my_chip.load_game(Path::new("/home/jf/Documents/chip8/roms/Keypad Test [Hap, 2006].ch8"));
 
 
     let mut window = Window::new(
@@ -43,22 +42,22 @@ fn main() {
         panic!("{}", e);
     });
 
-    //window.limit_update_rate(Some(std::time::Duration::from_micros(16600)));
-
 
     let mut cpu_timer = Instant::now();
     let mut delay_and_sound = Instant::now();
 
 
+    // 4150 is an arbitrary choice
     window.limit_update_rate(Some(std::time::Duration::from_micros(4150)));
     while window.is_open() && !window.is_key_down(Key::Escape) {
 
         // 2ms => 500hz
         if cpu_timer.elapsed().subsec_millis() > 2 {
             my_chip.emulate_cycle(&window);
-            let cpu_timer = Instant::now();
+            cpu_timer = Instant::now();
         }
 
+        // both timers run at 60hz
         if delay_and_sound.elapsed().as_micros() > 16667  {
             if my_chip.delay_timer > 0 {
                 my_chip.delay_timer -= 1;
@@ -69,7 +68,6 @@ fn main() {
 
             }
             delay_and_sound = Instant::now();
-
         }
 
         window
@@ -471,7 +469,7 @@ impl Chip8 {
                     //FX55
                     0x0055 => {
 
-                        for i in 0..b {
+                        for i in 0..(b+1) {
                             self.memory[self.index as usize + i] = self.registers[i];
                         }
                         self.pc += 2;
@@ -479,7 +477,7 @@ impl Chip8 {
                     },
                     //FX65
                     0x0065 => {
-                        for i in 0..b {
+                        for i in 0..(b+1) {
                             self.registers[i] = self.memory[self.index as usize + i];
                         }
                         self.pc += 2;
