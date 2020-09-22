@@ -29,7 +29,7 @@ const FONT: [u8; 80] = [
 fn main() {
     let mut my_chip = Chip8::new();
     my_chip.load_font();
-    my_chip.load_game(Path::new("/home/jf/Documents/chip8/roms/Keypad Test [Hap, 2006].ch8"));
+    my_chip.load_game(Path::new("/home/jf/Documents/chip8/roms/Brix [Andreas Gustafsson, 1990].ch8"));
 
 
     let mut window = Window::new(
@@ -388,7 +388,7 @@ impl Chip8 {
 
                         x += 1;
 
-                        if x % 63 == 0 {
+                        if x % 64 == 0 {
                             break
                         }
                     }

@@ -4,6 +4,11 @@ This is an implementation of a Chip-8 interpreter.
 
 ## Screenshots
 
+![](https://github.com/jfto23/personal_website/blob/gh-pages/assets/images/chip8_tetris.png)
+
+![](https://github.com/jfto23/personal_website/blob/gh-pages/assets/images/chip8_space.png)
+
+![](https://github.com/jfto23/personal_website/blob/gh-pages/assets/images/chip8_brix.png)
 
 
 ## Install
