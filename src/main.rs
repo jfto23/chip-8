@@ -1,5 +1,6 @@
 use std::path::Path;
 use std::fs;
+use std::env;
 use std::time::{Duration, Instant};
 use rand::Rng;
 use minifb::{Key, Window, WindowOptions};
@@ -27,9 +28,12 @@ const FONT: [u8; 80] = [
 ];
 
 fn main() {
+
+    let args: Vec<String> = env::args().collect();
+    let path_to_rom = Path::new(&args[1]);
     let mut my_chip = Chip8::new();
     my_chip.load_font();
-    my_chip.load_game(Path::new("/home/jf/Documents/chip8/roms/Brix [Andreas Gustafsson, 1990].ch8"));
+    my_chip.load_game(path_to_rom);
 
 
     let mut window = Window::new(
